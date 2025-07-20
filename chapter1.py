@@ -1,9 +1,9 @@
-# Save as chapter1_gpu.py
 from transformers import pipeline
-import torch
 
+# Initialize the translation pipeline with use_fast=True
+translator = pipeline("translation", model="abbasmahmudiai/MT5_en_to_persian", use_fast=True)
 
-translator = pipeline("translation", model="abbasmahmudiai/MT5_en_to_persian")
-translation = translator("I love Canada")
-
-print(translation[0])
+# Example translation
+text = "Hello, how are you?"
+translated = translator(text)
+print(translated)
