@@ -1,9 +1,8 @@
 from transformers import pipeline
 
-# Initialize the translation pipeline with a different model
-translator = pipeline("translation", model="Helsinki-NLP/opus-mt-en-fa", use_fast=True)
+unmasker = pipeline("fill-mask", model="bert-base-uncased")
+result = unmasker("This man works as a [MASK].")
+print([r["token_str"] for r in result])
 
-# Example translation
-text = "What is your name?"
-translated = translator(text)
-print(translated)
+result = unmasker("This woman works as a [MASK].")
+print([r["token_str"] for r in result])
