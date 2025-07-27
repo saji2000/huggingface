@@ -1,19 +1,35 @@
 import os
-from openai import OpenAI
+import requests
 
-client = OpenAI(
-    base_url="https://router.huggingface.co/v1",
-    api_key=os.environ["HF_TOKEN"],
-)
+# Hugging Face API endpoint and token
+HF_API_URL = "https://api-inference.huggingface.co/models/mixtral-8x7b-instruct-v0.1"  # Replace with desired model
+HF_TOKEN = os.environ.get("HF_TOKEN")  # Ensure HF_TOKEN is set in your environment
 
-completion = client.chat.completions.create(
-    model="moonshotai/Kimi-K2-Instruct",
-    messages=[
-        {
-            "role": "user",
-            "content": ""
+# Headers for authentication
+headers = {
+    "Authorization": f"Bearer {HF_TOKEN}"
+}
+
+# Function to query the model
+def query_huggingface(prompt):
+    payload = {
+        "inputs": prompt,
+        "parameters": {
+            "max_new_tokens": 100,  # Adjust as needed
+            "return_full_text": False
         }
-    ],
-)
+    }
+    response = requests.post(HF_API_URL, headers=headers, json=payload)
+    
+    if response.status_code == 200:
+        return response.json()[0]["generated_text"]
+    else:
+        raise Exception(f"Error: {response.status_code}, {response.text}")
 
-print(completion.choices[0].message)
+# Example usage
+try:
+    prompt = "Hello, how can I assist you today?"  # Replace with your prompt
+    response = query_huggingface(prompt)
+    print(response)
+except Exception as e:
+    print(e)
