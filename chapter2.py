@@ -1,11 +1,5 @@
-from transformers import pipeline
+from transformers import BertModel
 
-classifier = pipeline("sentiment-analysis")
-results = classifier(
-    [
-        "I've been waiting for a HuggingFace course my whole life.",
-        "I love you!",
-    ]
-)
+model = BertModel.from_pretrained("bert-base-cased")
 
-print(results)
+model.save_pretrained("bert-model")
