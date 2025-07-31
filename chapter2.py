@@ -1,5 +1,6 @@
-from transformers import BertModel
+from transformers import AutoTokenizer
 
-model = BertModel.from_pretrained("bert-base-cased")
+tokenizer = AutoTokenizer.from_pretrained("./bert-model")
 
-model.save_pretrained("bert-model")
+encoded_input = tokenizer("Hello, I'm a single sentence!")
+print(encoded_input)
