@@ -11,5 +11,5 @@ tokenizer = AutoTokenizer.from_pretrained("./bert-model")
 print(os.listdir("./bert-model"))
 
 # Step 4: Test encoding a sentence
-encoded_input = tokenizer("Hello, I'm a single sentence!")
+encoded_input = tokenizer("This is a preloaded model!")
 print(encoded_input)
