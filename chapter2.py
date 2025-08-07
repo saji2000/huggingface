@@ -1,6 +1,8 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
+#Installed docker
+
 checkpoint = "./bert-model"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
