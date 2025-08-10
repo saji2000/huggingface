@@ -1,20 +1,21 @@
 import torch
+from torch.optim import AdamW
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-#Installed docker
-
+# Same as before
 checkpoint = "./bert-model"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
+sequences = [
+    "I've been waiting for a HuggingFace course my whole life.",
+    "This course is amazing!",
+]
+batch = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt")
 
-sequence = ["I've been waiting for a HuggingFace course my whole life.", "Me too"]
+# This is new
+batch["labels"] = torch.tensor([1, 1])
 
-tokens = tokenizer(sequence, padding=True, truncation=True, return_tensors="pt")
-output = model(**tokens)
-
-print(output)
-# input_ids = torch.tensor([ids])
-# print("Input IDs:", input_ids)
-
-# output = model(input_ids)
-# print("Logits:", output.logits)
+optimizer = AdamW(model.parameters())
+loss = model(**batch).loss
+loss.backward()
+optimizer.step()
