@@ -2,6 +2,8 @@ import torch
 from torch.optim import AdamW
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
+
+# vms are no good for ai development
 # Same as before
 checkpoint = "./bert-model"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
