@@ -1,6 +1,7 @@
 from huggingface_hub import InferenceClient
 
 # Initialize client pointing to TGI endpoint
+# Re installed docker and wsl
 client = InferenceClient(
     model="http://localhost:8080",  # URL to the TGI server
 )
