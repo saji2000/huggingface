@@ -7,7 +7,7 @@ import numpy as np
 login()
 
 dataset = load_dataset("yelp_review_full")
-tokenizer = AutoTokenizer.from_pretrained("google-bert/bert-base-cased")
+tokenizer = AutoTokenizer.from_pretrained("./bert-model")
 
 def tokenize_function(examples):
     return tokenizer(examples["text"], padding="max_length", truncation=True)
@@ -19,7 +19,7 @@ dataset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attent
 small_train = dataset["train"].shuffle(seed=42).select(range(1000))
 small_eval = dataset["test"].shuffle(seed=42).select(range(200))
 
-model = AutoModelForSequenceClassification.from_pretrained("google-bert/bert-base-cased", num_labels=5)
+model = AutoModelForSequenceClassification.from_pretrained("./bert-model", num_labels=5)
 
 metric = evaluate.load("accuracy")
 
