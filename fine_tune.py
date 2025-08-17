@@ -6,6 +6,7 @@ import numpy as np
 
 login()
 
+# Fine tune
 dataset = load_dataset("yelp_review_full")
 tokenizer = AutoTokenizer.from_pretrained("./bert-model")
 
